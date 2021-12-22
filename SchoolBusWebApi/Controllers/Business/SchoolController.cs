@@ -31,6 +31,13 @@ namespace SchoolBusWebApi.Controllers.Business
             return Ok(Result);
         }
 
+        [HttpGet("GetSchool/{id}")]
+        public async Task<ActionResult<SchoolDto>> GetSchoolById(int Id)
+        {
+            var Result = await businessUnit.Schools.GetByIdAsync(Id);
+            return Ok(Result);
+        }
+
         [HttpGet("GetSchoolPaging")]
         public async Task<ActionResult<PagedList<SchoolDto>>> Get([FromQuery] SchoolParams SchoolParams)
         {

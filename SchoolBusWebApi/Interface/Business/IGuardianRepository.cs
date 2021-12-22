@@ -12,6 +12,7 @@ namespace SchoolBusWebApi.Interface.Business
     {
 
         Task<List<GuardianDto>> GetAsync();
+        Task<GuardianDto> GetByIdAsync(int Id);
         Task<PagedList<GuardianDto>> GetByParamAsync(GuardianParams Param);
         Task<int> Add(GuardianDto Guardian);
         void Delete(int id);

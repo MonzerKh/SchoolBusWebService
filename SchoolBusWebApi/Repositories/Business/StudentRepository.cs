@@ -55,13 +55,18 @@ namespace SchoolBusWebApi.Repositories.Business
             var query = _context.Students.ProjectTo<StudentDto>(_mapper
              .ConfigurationProvider).AsQueryable().AsNoTracking();
 
-            //if (!string.IsNullOrEmpty(Param.Student_Name))
-            //    query = query.Where(r => r.Student_Name.Contains(Param.Student_Name));
+            if (!string.IsNullOrEmpty(Param.Full_Name))
+                query = query.Where(r => r.Full_Name.Contains(Param.Full_Name));
 
             //if (!string.IsNullOrEmpty(Param.Manager))
             //    query = query.Where(r => r.Manager.Contains(Param.Manager));
             //if (Param.Address != null)
             //    query = query.Where(r => r.Address.Contains(Param.Address));
+
+            if (Param.OrderBy =="Full_Name")
+            {
+                query = query.OrderBy(r => r.Full_Name);
+            }
 
             return await PagedList<StudentDto>.CreateAsync(query,
                  Param.PageNumber, Param.PageSize);

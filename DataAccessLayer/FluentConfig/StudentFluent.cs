@@ -27,6 +27,7 @@ namespace DataAccessLayer.FluentConfig
             builder.Property(r => r.Father).HasMaxLength(250);
             builder.Property(r => r.Mother).HasMaxLength(250);
             builder.Property(r => r.Email).HasMaxLength(250);
+            builder.Property(r => r.National_Number).HasMaxLength(250);
             builder.Property(r => r.BoxNumber).HasMaxLength(250);
             builder.Property(r => r.ImagePath).HasMaxLength(250);
 

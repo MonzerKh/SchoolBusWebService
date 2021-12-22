@@ -10,6 +10,7 @@ namespace ModelsLayer.Dtos.Business
     public class StudentDto : PersonalCard
     {
         public string Father { get; set; }
+        public string Natoinal_Number { get; set; }
         public string Mother { get; set; }
         public DateTime BirthDate { get; set; }
         public string ImagePath { get; set; }

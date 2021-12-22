@@ -11,5 +11,6 @@ namespace ModelsLayer.Params
         public string Full_Name { get; set; }
         public string Address { get; set; }
         public string Guardian_Name { get; set; }
+        public string OrderBy { get; set; }
     }
 }

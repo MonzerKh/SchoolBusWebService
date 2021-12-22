@@ -29,6 +29,13 @@ namespace SchoolBusWebApi.Repositories.Business
             return Data.Id;
         }
 
+        public async Task<GuardianDto> GetByIdAsync(int Id)
+        {
+            var query = _context.Guardians.Where(r => r.Id == Id).AsQueryable();
+
+            return await query.ProjectTo<GuardianDto>(_mapper.ConfigurationProvider).FirstOrDefaultAsync();
+        }
+
         public void Delete(int id)
         {
             _context.Guardians.Remove(new Guardian() { Id = id });

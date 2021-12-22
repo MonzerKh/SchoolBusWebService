@@ -31,6 +31,13 @@ namespace SchoolBusWebApi.Controllers.Business
             return Ok(Result);
         }
 
+        [HttpGet("GetGuardian/{id}")]
+        public async Task<ActionResult<GuardianDto>> GetGuardianById(int Id)
+        {
+            var Result = await businessUnit.Guardians.GetByIdAsync(Id);
+            return Ok(Result);
+        }
+
         [HttpGet("GetGuardianPaging")]
         public async Task<ActionResult<PagedList<GuardianDto>>> Get([FromQuery] GuardianParams GuardianParams)
         {

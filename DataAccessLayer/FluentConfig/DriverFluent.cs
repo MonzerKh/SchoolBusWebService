@@ -24,6 +24,7 @@ namespace DataAccessLayer.FluentConfig
             builder.Property(r => r.ImagePath).HasMaxLength(250);
 
             builder.Property(r => r.PersonalImage).HasColumnType("image");
+            builder.Property(r => r.National_Number).HasMaxLength(250);
 
             #region Model Relations
             builder.HasOne(t => t.SystemUser).WithMany(r => r.Drivers).HasForeignKey(c => c.SystemUser_Id);

@@ -21,9 +21,10 @@ namespace DataAccessLayer.FluentConfig
             builder.Property(r => r.Address).IsRequired();
             builder.Property(r => r.CreatedBy).IsRequired();
 
+
             builder.Property(r => r.Full_Name).IsRequired().HasMaxLength(250);
             builder.Property(r => r.Phone).IsRequired().HasMaxLength(250);
-
+            builder.Property(r => r.National_Number).HasMaxLength(250);
             builder.Property(r => r.Email).HasMaxLength(250);
 
             builder.Property(r => r.ImagePath).HasMaxLength(250);
