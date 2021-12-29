@@ -6,10 +6,12 @@ using ModelsLayer.DataLayer.Tables;
 using ModelsLayer.Dtos.Business;
 using ModelsLayer.Helper;
 using ModelsLayer.Params;
+using SchoolBusWebApi.Helpers;
 using SchoolBusWebApi.Interface.Business;
 using SchoolBusWebApi.Repositories.Core;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,10 +25,29 @@ namespace SchoolBusWebApi.Repositories.Business
         public async Task<int> Add(SchoolDto item)
         {
             var Data = _mapper.Map<School>(item);
+            //bool ImageStatus = !string.IsNullOrEmpty(item.LogoImage);
+            //if (ImageStatus)
+            //    Data.Logo = SystemConfigurations.FromBase64String(item.LogoImage);
+          
             Data.CreateTime = DateTime.Now;
             Data.CreateUser_Id = item.CreatedBy;
             _context.Schools.Add(Data);
             await _context.SaveChangesAsync();
+            //if (ImageStatus)
+            //{
+            //    try
+            //    {
+            //        string Root = Path.GetFullPath(@"./" + string.Format("/assets/images/Schools/School_{0}.png", Data.Id));
+            //        await File.WriteAllBytesAsync(Root, Data.Logo);
+            //        Data.SchoolUrl = Root;
+            //        await _context.SaveChangesAsync();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        string err = ex.Message;
+            //    }
+
+            //}
             return Data.Id;
         }
 

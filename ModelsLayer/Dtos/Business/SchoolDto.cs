@@ -14,7 +14,7 @@ namespace ModelsLayer.Dtos.Business
         public string Address { get; set; }
         public string Manager { get; set; }
         public string Phone { get; set; }
-        public byte[] Logo { get; set; }
+        public string SchoolImage { get; set; }
         public string SchoolUrl { get; set; }
         public int CreatedBy { get; set; }
         public int UpdateBy { get; set; }

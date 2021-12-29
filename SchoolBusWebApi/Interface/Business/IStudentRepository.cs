@@ -12,6 +12,7 @@ namespace SchoolBusWebApi.Interface.Business
     {
 
         Task<List<StudentDto>> GetAsync();
+        Task<StudentDto> GetByIdAsync(int Id);
         Task<PagedList<StudentDto>> GetByParamAsync(StudentParams Param);
         Task<int> Add(StudentDto Student);
         void Delete(int id);

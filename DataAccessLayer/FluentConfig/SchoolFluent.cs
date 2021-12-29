@@ -21,7 +21,7 @@ namespace DataAccessLayer.FluentConfig
             builder.Property(r => r.Manager).HasMaxLength(250);
             builder.Property(r => r.SchoolUrl).HasMaxLength(250);
 
-            builder.Property(r => r.Logo).HasColumnType("image");
+            builder.Property(r => r.SchoolImage).IsRequired(required: false);
 
             #region Model Relations
             builder.HasOne(t => t.CreateUser).WithMany(r => r.Schools).HasForeignKey(c => c.CreateUser_Id);

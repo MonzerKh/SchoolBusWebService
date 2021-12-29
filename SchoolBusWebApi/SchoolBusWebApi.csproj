@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="assets\images\Schools\" />
     <Folder Include="assets\images\users\" />
   </ItemGroup>
 

@@ -11,7 +11,7 @@ namespace ModelsLayer.DataLayer.Tables
         public string Manager { get; set; }
         public string Phone { get; set; }
 
-        public byte[] Logo { get; set; }
+        public string SchoolImage { get; set; }
         public string SchoolUrl { get; set; }
 
         public int? CreateUser_Id { get; set; }
