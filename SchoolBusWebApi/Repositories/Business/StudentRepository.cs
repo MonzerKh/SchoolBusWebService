@@ -4,6 +4,7 @@ using DataAccessLayer.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using ModelsLayer.DataLayer.Tables;
 using ModelsLayer.Dtos.Business;
+using ModelsLayer.Dtos.DropList;
 using ModelsLayer.Helper;
 using ModelsLayer.Params;
 using SchoolBusWebApi.Interface.Business;
@@ -49,6 +50,14 @@ namespace SchoolBusWebApi.Repositories.Business
 
             return await query.ProjectTo<StudentDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
+
+        public async Task<List<StudentListDto>> GetListAsync()
+        {
+            var query = _context.Students.AsQueryable();
+
+            return await query.ProjectTo<StudentListDto>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+
 
         public async Task<StudentDto> GetByIdAsync(int Id)
         {

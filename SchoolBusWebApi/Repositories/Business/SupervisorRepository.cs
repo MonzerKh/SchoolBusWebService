@@ -4,6 +4,7 @@ using DataAccessLayer.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using ModelsLayer.DataLayer.Tables;
 using ModelsLayer.Dtos.Business;
+using ModelsLayer.Dtos.DropList;
 using ModelsLayer.Helper;
 using ModelsLayer.Params;
 using SchoolBusWebApi.Interface.Business;
@@ -49,19 +50,38 @@ namespace SchoolBusWebApi.Repositories.Business
 
             return await query.ProjectTo<SupervisorDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
+        public async Task<List<SupervisorListDto>> GetListAsync()
+        {
+            var query = _context.Supervisors.AsQueryable();
+
+            return await query.ProjectTo<SupervisorListDto>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+
+
+        public async Task<SupervisorDto> GetByIdAsync(int Id)
+        {
+            var query = _context.Supervisors.Where(r => r.Id == Id).AsQueryable();
+
+            return await query.ProjectTo<SupervisorDto>(_mapper.ConfigurationProvider).FirstOrDefaultAsync();
+        }
+
 
         public async Task<PagedList<SupervisorDto>> GetByParamAsync(SupervisorParams Param)
         {
             var query = _context.Supervisors.ProjectTo<SupervisorDto>(_mapper
              .ConfigurationProvider).AsQueryable().AsNoTracking();
 
-            //if (!string.IsNullOrEmpty(Param.Supervisor_Name))
-            //    query = query.Where(r => r.Supervisor_Name.Contains(Param.Supervisor_Name));
+            if (!string.IsNullOrEmpty(Param.Full_Name))
+                query = query.Where(r => r.Full_Name.Contains(Param.Full_Name));
 
-            //if (!string.IsNullOrEmpty(Param.Manager))
-            //    query = query.Where(r => r.Manager.Contains(Param.Manager));
-            //if (Param.Address != null)
-            //    query = query.Where(r => r.Address.Contains(Param.Address));
+            if (!string.IsNullOrEmpty(Param.Address))
+                query = query.Where(r => r.Address.Contains(Param.Address));
+           
+            if (!string.IsNullOrEmpty(Param.School_Name))
+                query = query.Where(r => r.School_Name.Contains(Param.School_Name));
+
+            if (!string.IsNullOrEmpty(Param.UserName))
+                query = query.Where(r => r.UserName.Contains(Param.UserName));
 
             return await PagedList<SupervisorDto>.CreateAsync(query,
                  Param.PageNumber, Param.PageSize);

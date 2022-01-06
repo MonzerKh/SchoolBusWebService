@@ -15,6 +15,7 @@ namespace SchoolBusWebApi.Interface.Business
         Task<List<DriverDto>> GetAsync();
 
         Task<List<DriverListDto>> GetListAsync();
+        Task<DriverDto> GetByIdAsync(int Id);
         Task<PagedList<DriverDto>> GetByParamAsync(DriverParams Param);
         Task<int> Add(DriverDto Driver);
         void Delete(int id);

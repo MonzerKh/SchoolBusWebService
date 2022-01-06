@@ -1,4 +1,5 @@
 ﻿using ModelsLayer.DataLayer.Tables.Permissions;
+using ModelsLayer.Dtos.DropList;
 using ModelsLayer.Dtos.SystemUsers;
 using ModelsLayer.Helper;
 using System;
@@ -17,5 +18,9 @@ namespace SchoolBusWebApi.Interface
         Task<bool> Update(SystemUserDto SystemUser);
         Task<SystemUserDto> Login(LoginDto loginDto);
         Task<bool> UserExists(string username);
+        Task<SystemUserDto> GetByIdAsync(int Id);
+        Task<List<SystemUserListDto>> GetListAsync();
+        Task<int> Add(CreateUserDto systemUser);
+        Task<bool> Update(CreateUserDto systemUser);
     }
 }

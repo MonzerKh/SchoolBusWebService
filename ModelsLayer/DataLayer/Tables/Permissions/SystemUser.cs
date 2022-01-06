@@ -21,7 +21,7 @@ namespace ModelsLayer.DataLayer.Tables.Permissions
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public string ImagePath  { get; set; }
-        public byte[] ImageIcon { get; set; }
+        public string PersonalImage { get; set; }
         public UserType UserType { get; set; }
 
         public ICollection<School> Schools { get; set; }

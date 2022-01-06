@@ -20,7 +20,7 @@ namespace SchoolBusWebApi.Repositories
             _tokenService = tokenService;
         }
 
-        public ISystemUserRepository User => new SystemUserRepository(_context, _mapper, _tokenService);
+        public ISystemUserRepository Users => new SystemUserRepository(_context, _mapper, _tokenService);
 
         public IRoleRepository Roles => new RoleRepository(_context, _mapper);
 

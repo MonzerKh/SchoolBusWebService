@@ -52,6 +52,16 @@ namespace SchoolBusWebApi.Repositories.Business
             return await query.ProjectTo<BusDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
+        public async Task<BusDto> GetByIdAsync(int Id)
+        {
+            var query = _context.Buses.Where(r => r.Id == Id).AsQueryable();
+
+            return await query.ProjectTo<BusDto>(_mapper.ConfigurationProvider).FirstOrDefaultAsync();
+        }
+
+
+
+
         public async Task<PagedList<BusDto>> GetByParamAsync(BusParams Param)
         {
             var query = _context.Buses.ProjectTo<BusDto>(_mapper

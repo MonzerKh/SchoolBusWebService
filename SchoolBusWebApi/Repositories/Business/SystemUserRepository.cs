@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using DataAccessLayer.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using ModelsLayer.DataLayer.Tables.Permissions;
+using ModelsLayer.Dtos.DropList;
 using ModelsLayer.Dtos.SystemUsers;
 using SchoolBusWebApi.Interface;
 using SchoolBusWebApi.Repositories.Core;
@@ -96,6 +97,51 @@ namespace SchoolBusWebApi.Repositories
         public Task<bool> UserExists(string username)
         {
             return _context.SystemUsers.AnyAsync(r => r.UserName == username);
+        }
+
+        public async Task<List<SystemUserListDto>> GetListAsync()
+        {
+            var query = _context.SystemUsers.AsQueryable();
+
+            return await query.ProjectTo<SystemUserListDto>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+
+
+        public async Task<SystemUserDto> GetByIdAsync(int Id)
+        {
+            var query = _context.SystemUsers.Where(r => r.Id == Id).AsQueryable();
+
+            return await query.ProjectTo<SystemUserDto>(_mapper.ConfigurationProvider).FirstOrDefaultAsync();
+        }
+
+        public async Task<int> Add(CreateUserDto systemUser)
+        {
+            var data = await _context.SystemUsers.Where(r => r.UserName == systemUser.UserName).FirstOrDefaultAsync();
+            if (data != null)
+                return data.Id;
+
+            using var hamc = new HMACSHA512();
+            var item = new SystemUser()
+            {
+                PasswordHash = hamc.ComputeHash(Encoding.UTF8.GetBytes(systemUser.Password)),
+                PasswordSalt = hamc.Key
+            };
+            _mapper.Map(systemUser, item);
+            _context.SystemUsers.Add(item);
+            await _context.SaveChangesAsync();
+            return item.Id;
+        }
+
+        public async Task<bool> Update(CreateUserDto systemUser)
+        {
+            var Data = await _context.SystemUsers.FindAsync(systemUser.Id);
+            _mapper.Map(systemUser, Data);
+            using var hamc = new HMACSHA512();
+            Data.PasswordHash = hamc.ComputeHash(Encoding.UTF8.GetBytes(systemUser.Password));
+            Data.PasswordSalt = hamc.Key;
+            Data.UpdateTime = DateTime.Now;
+            _context.Entry(Data).State = EntityState.Modified;
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

@@ -39,6 +39,14 @@ namespace SchoolBusWebApi.Controllers.Business
             return Ok(Result);
         }
 
+        [HttpGet("GetDriver/{id}")]
+        public async Task<ActionResult<DriverDto>> GetDriverById(int Id)
+        {
+            var Result = await businessUnit.Drivers.GetByIdAsync(Id);
+            return Ok(Result);
+        }
+
+
         [HttpGet("GetDriverPaging")]
         public async Task<ActionResult<PagedList<DriverDto>>> Get([FromQuery] DriverParams DriverParams)
         {

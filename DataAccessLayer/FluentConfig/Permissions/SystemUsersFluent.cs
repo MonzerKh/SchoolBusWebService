@@ -13,7 +13,7 @@ namespace DataAccessLayer.FluentConfig.Permissions
             builder.Property(r => r.Full_Name).HasMaxLength(250);
             builder.Property(r => r.PasswordHash).IsRequired();
             builder.Property(r => r.PasswordSalt).IsRequired();
-            builder.Property(r => r.ImageIcon).HasColumnType("image");
+          //  builder.Property(r => r.PersonalImage).HasColumnType("image");
             builder.Property(r => r.ImagePath).HasMaxLength(250);
         }
     }

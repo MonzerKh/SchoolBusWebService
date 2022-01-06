@@ -1,4 +1,5 @@
 ﻿using ModelsLayer.Dtos.Business;
+using ModelsLayer.Dtos.DropList;
 using ModelsLayer.Helper;
 using ModelsLayer.Params;
 using System;
@@ -16,5 +17,9 @@ namespace SchoolBusWebApi.Interface.Business
         Task<int> Add(BusCompanyDto BusCompany);
         void Delete(int id);
         Task<bool> Update(BusCompanyDto BusCompany);
+        Task<BusCompanyDto> GetByIdAsync(int Id);
+
+
+        Task<List<BusCompanyListDto>> GetListAsync();
     }
 }

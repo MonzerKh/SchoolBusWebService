@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelsLayer.Dtos.Business;
+using ModelsLayer.Dtos.DropList;
 using ModelsLayer.Helper;
 using ModelsLayer.Params;
 using SchoolBusWebApi.Controllers.Core;
@@ -28,6 +29,22 @@ namespace SchoolBusWebApi.Controllers.Business
         public async Task<ActionResult<PagedList<SupervisorDto>>> GetSupervisors()
         {
             var Result = await businessUnit.Supervisors.GetAsync();
+            return Ok(Result);
+        }
+
+
+        [HttpGet("GetSupervisorList")]
+        public async Task<ActionResult<PagedList<SupervisorListDto>>> GetSupervisorList()
+        {
+            var Result = await businessUnit.Supervisors.GetListAsync();
+            return Ok(Result);
+        }
+
+
+        [HttpGet("GetSupervisor/{id}")]
+        public async Task<ActionResult<SupervisorDto>> GetSupervisorById(int Id)
+        {
+            var Result = await businessUnit.Supervisors.GetByIdAsync(Id);
             return Ok(Result);
         }
 

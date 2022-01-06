@@ -14,6 +14,9 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using ModelsLayer.Dtos.DropList;
+using SchoolBusWebApi.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SchoolBusWebApi.Controllers
 {
@@ -26,7 +29,7 @@ namespace SchoolBusWebApi.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<SystemUserDto>> Login(LoginDto loginDto)
         {
-            var user = await _userUnit.User.Login(loginDto);
+            var user = await _userUnit.Users.Login(loginDto);
 
             switch (user.Id)
             {
@@ -41,12 +44,47 @@ namespace SchoolBusWebApi.Controllers
             return Ok(user);
         }
 
+        [HttpPost("SetSystemUser")]
+        public async Task<ActionResult<SystemUserDto>> SetSystemUser(CreateUserDto SystemUser)
+        {
+            if (SystemUser.Id == 0)
+            {
+                SystemUser.CreatedBy = User.GetUserId();
+                SystemUser.Id = await _userUnit.Users.Add(SystemUser);
+                var Result = await _userUnit.Users.GetByIdAsync(SystemUser.Id);
+                return Ok(Result);
+            }
+            else
+            {
+                SystemUser.UpdateBy = User.GetUserId();
+                if (await _userUnit.Users.Update(SystemUser))
+                    return Ok();
+            }
+            return BadRequest("Error While Insert Data ..!");
+        }
+
         [HttpGet("UserExists")]
         public async Task<bool> UserExists(string username)
         {
-            return await _userUnit.User.UserExists(username);
+            return await _userUnit.Users.UserExists(username);
         }
 
 
+
+        [HttpGet("GetSystemUserList")]
+        [Authorize]
+        public async Task<ActionResult<SystemUserListDto>> GetSystemUserList()
+        {
+            var Result = await _userUnit.Users.GetListAsync();
+            return Ok(Result);
+        }
+
+        [Authorize]
+        [HttpGet("GetSystemUser/{id}")]
+        public async Task<ActionResult<SystemUserDto>> GetSystemUserById(int Id)
+        {
+            var Result = await _userUnit.Users.GetByIdAsync(Id);
+            return Ok(Result);
+        }
     }
 }

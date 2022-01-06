@@ -57,7 +57,13 @@ namespace SchoolBusWebApi.Repositories.Business
 
             return await query.ProjectTo<DriverListDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
-		
+
+        public async Task<DriverDto> GetByIdAsync(int Id)
+        {
+            var query = _context.Drivers.Where(r => r.Id == Id).AsQueryable();
+
+            return await query.ProjectTo<DriverDto>(_mapper.ConfigurationProvider).FirstOrDefaultAsync();
+        }
 
         public async Task<PagedList<DriverDto>> GetByParamAsync(DriverParams Param)
         {

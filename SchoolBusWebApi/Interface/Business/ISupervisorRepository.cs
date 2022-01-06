@@ -1,4 +1,5 @@
 ﻿using ModelsLayer.Dtos.Business;
+using ModelsLayer.Dtos.DropList;
 using ModelsLayer.Helper;
 using ModelsLayer.Params;
 using System;
@@ -12,7 +13,10 @@ namespace SchoolBusWebApi.Interface.Business
     {
 
         Task<List<SupervisorDto>> GetAsync();
-        Task<PagedList<SupervisorDto>> GetByParamAsync(SupervisorParams Param);
+        Task<PagedList<SupervisorDto>> GetByParamAsync(SupervisorParams Param); 
+        Task<SupervisorDto> GetByIdAsync(int Id);
+
+        Task<List<SupervisorListDto>> GetListAsync();
         Task<int> Add(SupervisorDto Supervisor);
         void Delete(int id);
         Task<bool> Update(SupervisorDto Supervisor);

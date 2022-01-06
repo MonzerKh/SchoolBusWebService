@@ -9,7 +9,7 @@ namespace SchoolBusWebApi.Interface
 {
     public interface IUnitOfWork
     {
-        public ISystemUserRepository User { get; }
+        public ISystemUserRepository Users { get; }
 
         public IRoleRepository Roles { get;  }
 
