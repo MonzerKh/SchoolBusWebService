@@ -4,6 +4,7 @@ using DataAccessLayer.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using ModelsLayer.DataLayer.Tables;
 using ModelsLayer.Dtos.Business;
+using ModelsLayer.Dtos.DropList;
 using ModelsLayer.Helper;
 using ModelsLayer.Params;
 using SchoolBusWebApi.Interface.Business;
@@ -50,18 +51,31 @@ namespace SchoolBusWebApi.Repositories.Business
             return await query.ProjectTo<DriverDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
+         public async Task<List<DriverListDto>> GetListAsync()
+        {
+            var query = _context.Drivers.AsQueryable();
+
+            return await query.ProjectTo<DriverListDto>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+		
+
         public async Task<PagedList<DriverDto>> GetByParamAsync(DriverParams Param)
         {
             var query = _context.Drivers.ProjectTo<DriverDto>(_mapper
              .ConfigurationProvider).AsQueryable().AsNoTracking();
 
-            //if (!string.IsNullOrEmpty(Param.Driver_Name))
-            //    query = query.Where(r => r.Driver_Name.Contains(Param.Driver_Name));
-
-            //if (!string.IsNullOrEmpty(Param.Manager))
-            //    query = query.Where(r => r.Manager.Contains(Param.Manager));
-            //if (Param.Address != null)
-            //    query = query.Where(r => r.Address.Contains(Param.Address));
+            if (!string.IsNullOrEmpty(Param.Company))
+                query = query.Where(r => r.Company.Contains(Param.Company));
+            if (!string.IsNullOrEmpty(Param.Email))
+                query = query.Where(r => r.Email.Contains(Param.Email));
+            if (!string.IsNullOrEmpty(Param.Full_Name))
+                query = query.Where(r => r.Full_Name.Contains(Param.Full_Name));
+            if (!string.IsNullOrEmpty(Param.National_Number))
+                query = query.Where(r => r.National_Number.Contains(Param.National_Number));
+            if (!string.IsNullOrEmpty(Param.Phone))
+                query = query.Where(r => r.Phone.Contains(Param.Phone));
+            if (!string.IsNullOrEmpty(Param.Company))
+                query = query.Where(r => r.UserName.Contains(Param.UserName));
 
             return await PagedList<DriverDto>.CreateAsync(query,
                  Param.PageNumber, Param.PageSize);

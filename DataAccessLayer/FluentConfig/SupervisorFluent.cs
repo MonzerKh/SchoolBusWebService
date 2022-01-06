@@ -24,7 +24,9 @@ namespace DataAccessLayer.FluentConfig
             builder.Property(r => r.Full_Name).IsRequired().HasMaxLength(250);
             builder.Property(r => r.National_Number).HasMaxLength(250);
             builder.Property(r => r.Phone).IsRequired().HasMaxLength(250);
-            
+            builder.Property(r => r.lat).HasColumnType("decimal(18, 8)");
+            builder.Property(r => r.lng).HasColumnType("decimal(18, 8)");
+
             builder.Property(r => r.Email).HasMaxLength(250);
 
             #region Model Relations

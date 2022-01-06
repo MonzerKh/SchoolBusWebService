@@ -39,8 +39,8 @@ namespace SchoolBusWebApi.Middelware
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
                 var response = _env.IsDevelopment()
-                    ? new ApiException(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString())
-                    : new ApiException(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString());
+                    ? new ApiException(context.Response.StatusCode, ex.Message, ex.InnerException?.ToString())
+                    : new ApiException(context.Response.StatusCode, ex.Message, ex.InnerException?.ToString());
 
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 

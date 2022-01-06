@@ -4,6 +4,7 @@ using DataAccessLayer.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using ModelsLayer.DataLayer.Tables;
 using ModelsLayer.Dtos.Business;
+using ModelsLayer.Dtos.DropList;
 using ModelsLayer.Helper;
 using ModelsLayer.Params;
 using SchoolBusWebApi.Interface.Business;
@@ -34,6 +35,13 @@ namespace SchoolBusWebApi.Repositories.Business
             var query = _context.Guardians.Where(r => r.Id == Id).AsQueryable();
 
             return await query.ProjectTo<GuardianDto>(_mapper.ConfigurationProvider).FirstOrDefaultAsync();
+        }
+
+         public async Task<List<GuardianListDto>> GetListAsync()
+        {
+            var query = _context.Guardians.AsQueryable();
+
+            return await query.ProjectTo<GuardianListDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
         public void Delete(int id)

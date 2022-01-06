@@ -2,6 +2,7 @@
 using ModelsLayer.DataLayer.Tables;
 using ModelsLayer.DataLayer.Tables.Permissions;
 using ModelsLayer.Dtos.Business;
+using ModelsLayer.Dtos.DropList;
 using ModelsLayer.Dtos.Permission;
 using System;
 using System.Collections.Generic;
@@ -65,6 +66,10 @@ namespace SchoolBusWebApi.Helpers
             CreateMap<School, SchoolDto>()
            .ForMember(dest => dest.UserName, opt => opt.MapFrom(r => r.CreateUser.UserName));
             CreateMap<SchoolDto, School>();
+
+            CreateMap<School, SchoolListDto>();
+            CreateMap<Guardian, GuardianListDto>();
+            CreateMap<Driver, DriverListDto>();
         }
     }
 }

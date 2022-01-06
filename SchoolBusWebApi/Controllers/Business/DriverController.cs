@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelsLayer.Dtos.Business;
+using ModelsLayer.Dtos.DropList;
 using ModelsLayer.Helper;
 using ModelsLayer.Params;
 using SchoolBusWebApi.Controllers.Core;
@@ -28,6 +29,13 @@ namespace SchoolBusWebApi.Controllers.Business
         public async Task<ActionResult<PagedList<DriverDto>>> GetDrivers()
         {
             var Result = await businessUnit.Drivers.GetAsync();
+            return Ok(Result);
+        }
+
+        [HttpGet("GetDriverList")]
+        public async Task<ActionResult<PagedList<DriverListDto>>> GetDriverList()
+        {
+            var Result = await businessUnit.Drivers.GetListAsync();
             return Ok(Result);
         }
 

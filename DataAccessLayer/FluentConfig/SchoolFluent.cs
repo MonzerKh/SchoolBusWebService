@@ -22,6 +22,8 @@ namespace DataAccessLayer.FluentConfig
             builder.Property(r => r.SchoolUrl).HasMaxLength(250);
 
             builder.Property(r => r.SchoolImage).IsRequired(required: false);
+            builder.Property(r => r.lat).HasColumnType("decimal(18, 8)");
+            builder.Property(r => r.lng).HasColumnType("decimal(18, 8)");
 
             #region Model Relations
             builder.HasOne(t => t.CreateUser).WithMany(r => r.Schools).HasForeignKey(c => c.CreateUser_Id);

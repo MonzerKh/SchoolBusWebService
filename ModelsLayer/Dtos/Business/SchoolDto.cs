@@ -18,6 +18,8 @@ namespace ModelsLayer.Dtos.Business
         public string SchoolUrl { get; set; }
         public int CreatedBy { get; set; }
         public int UpdateBy { get; set; }
+        public decimal lat { get; set; }
+        public decimal lng { get; set; }
 
         public int? CreateUser_Id { get; set; }
         public string UserName { get; set; }

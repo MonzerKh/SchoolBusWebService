@@ -14,5 +14,7 @@ namespace ModelsLayer.DataLayer.Core
         public string Street { get; set; }
         public string Address { get; set; }
         public string BoxNumber { get; set; }
+        public decimal lat { get; set; }
+        public decimal lng { get; set; }
     }
 }

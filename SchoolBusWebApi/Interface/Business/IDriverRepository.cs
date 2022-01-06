@@ -1,4 +1,5 @@
 ﻿using ModelsLayer.Dtos.Business;
+using ModelsLayer.Dtos.DropList;
 using ModelsLayer.Helper;
 using ModelsLayer.Params;
 using System;
@@ -12,6 +13,8 @@ namespace SchoolBusWebApi.Interface.Business
     {
 
         Task<List<DriverDto>> GetAsync();
+
+        Task<List<DriverListDto>> GetListAsync();
         Task<PagedList<DriverDto>> GetByParamAsync(DriverParams Param);
         Task<int> Add(DriverDto Driver);
         void Delete(int id);

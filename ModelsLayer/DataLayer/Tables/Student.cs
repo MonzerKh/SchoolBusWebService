@@ -13,7 +13,7 @@ namespace ModelsLayer.DataLayer.Tables
         public string Father { get; set; }
         public string Mother { get; set; }
         public DateTime BirthDate { get; set; }
-        public byte[] PersonalImage { get; set; }
+        public string PersonalImage { get; set; }
         public string ImagePath { get; set; }
 
         public int? SystemUser_Id { get; set; }

@@ -30,6 +30,8 @@ namespace DataAccessLayer.FluentConfig
             builder.Property(r => r.National_Number).HasMaxLength(250);
             builder.Property(r => r.BoxNumber).HasMaxLength(250);
             builder.Property(r => r.ImagePath).HasMaxLength(250);
+            builder.Property(r => r.lat).HasColumnType("decimal(18, 8)");
+            builder.Property(r => r.lng).HasColumnType("decimal(18, 8)");
 
             builder.Property(r => r.PersonalImage).HasColumnType("image");
             #region Model Relations

@@ -13,7 +13,7 @@ namespace ModelsLayer.DataLayer.Core
         public string Email { get; set; }
         public string Phone { get; set; }
 
-        public byte[] PersonalImage { get; set; }
+        public string PersonalImage { get; set; }
         public string ImagePath { get; set; }
     }
 }

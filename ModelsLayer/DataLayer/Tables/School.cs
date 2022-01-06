@@ -13,6 +13,8 @@ namespace ModelsLayer.DataLayer.Tables
 
         public string SchoolImage { get; set; }
         public string SchoolUrl { get; set; }
+        public decimal lat { get; set; }
+        public decimal lng { get; set; }
 
         public int? CreateUser_Id { get; set; }
         public SystemUser CreateUser { get; set; }
