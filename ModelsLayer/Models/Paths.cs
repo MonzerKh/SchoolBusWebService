@@ -9,6 +9,9 @@ namespace ModelsLayer.Models
 {
     public class Paths
     {
+        public StudentPeer FromLoc { get; set; }
+        public StudentPeer ToLoc { get; set; }
+        public double Distance { get; set; }
         public void GneratePaths()
         {
          //  var point = new GMapProvider
@@ -37,5 +40,11 @@ namespace ModelsLayer.Models
 
         //    Console.WriteLine("Distance from {0}, to {1} is {2} - Travel Time: {3}", _start, _stop, Distance, Duration);
         //}
+
+        public void CalcuateDistance()
+        {
+            this.Distance = Math.Pow(Convert.ToDouble( this.FromLoc.lat - this.ToLoc.lat), 2) 
+                          + Math.Pow(Convert.ToDouble(FromLoc.lng - ToLoc.lng), 2);
+        }
     }
 }
