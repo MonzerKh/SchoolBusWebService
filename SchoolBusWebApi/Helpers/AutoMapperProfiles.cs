@@ -5,6 +5,7 @@ using ModelsLayer.Dtos.Business;
 using ModelsLayer.Dtos.DropList;
 using ModelsLayer.Dtos.Permission;
 using ModelsLayer.Dtos.SystemUsers;
+using ModelsLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,13 @@ namespace SchoolBusWebApi.Helpers
             CreateMap<StudentDto, Student>();
 
 
+            CreateMap<Student, CreateStudentDto>()
+              .ForMember(dest => dest.UserName, opt => opt.MapFrom(r => r.SystemUser.UserName))
+              .ForMember(dest => dest.School_Name, opt => opt.MapFrom(r => r.School.School_Name))
+              .ForMember(dest => dest.Guardian_Name, opt => opt.MapFrom(r => r.Guardian.Full_Name));
+            CreateMap<CreateStudentDto, Student>();
+
+
             CreateMap<Supervisor, SupervisorDto>()
                .ForMember(dest => dest.UserName, opt => opt.MapFrom(r => r.SystemUser.UserName))
                .ForMember(dest => dest.School_Name, opt => opt.MapFrom(r => r.School.School_Name));
@@ -71,8 +79,14 @@ namespace SchoolBusWebApi.Helpers
             CreateMap<School, SchoolListDto>();
             CreateMap<Guardian, GuardianListDto>();
             CreateMap<Driver, DriverListDto>();
-            CreateMap<Student, StudentListDto>()
-                 .ForMember(dest => dest.Full_Address, opt => opt.MapFrom(r => r.Country+" "+r.Address));
+            CreateMap<Student, StudentListDto>().IncludeAllDerived()
+                 .ForMember(dest => dest.Full_Address, opt => opt.MapFrom(r => r.Country+" "+r.Address))
+                 .ForMember(dest => dest.School_Id, opt => opt.MapFrom(r => r.School.Id))
+                 .ForMember(dest => dest.School_Name, opt => opt.MapFrom(r => r.School.School_Name))
+                 .ForMember(dest => dest.Bus_Id, opt => opt.MapFrom(r => r.Student_Buses.Where(r=>r.IsActive==true).FirstOrDefault().Bus_Id ))
+                 .ForMember(dest => dest.Company, opt => opt.MapFrom(r => r.Student_Buses.Where(r => r.IsActive == true).FirstOrDefault().Bus.BusCompany.Company))
+                 .ForMember(dest => dest.Bus_Name, opt => opt.MapFrom(r => r.Student_Buses.Where(r => r.IsActive == true).FirstOrDefault().Bus.Number));
+
             CreateMap<Supervisor, SupervisorListDto>();
             CreateMap<SystemUser, SystemUserListDto>();
             CreateMap<SystemUserDto, SystemUser>();
@@ -80,6 +94,28 @@ namespace SchoolBusWebApi.Helpers
             CreateMap<CreateUserDto, SystemUser>();
             CreateMap<SystemUser, CreateUserDto>();
             CreateMap<BusCompany, BusCompanyListDto>();
+            
+            CreateMap<Student_Bus, Student_BusDto>()
+                .ForMember(dest => dest.Marka,opt=>opt.MapFrom(r=>r.Bus.Marka))
+                .ForMember(dest => dest.Capacity, opt => opt.MapFrom(r => r.Bus.Capacity))
+                .ForMember(dest => dest.Number, opt => opt.MapFrom(r => r.Bus.Number))
+                .ForMember(dest => dest.Full_Name, opt => opt.MapFrom(r => r.Student.Full_Name))
+                .ForMember(dest => dest.Phone, opt => opt.MapFrom(r => r.Student.Phone))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(r => r.Student.Email));
+            CreateMap<Student_BusDto, Student_Bus>();
+            CreateMap<Student_Bus, StudentBusListDto>()
+                 .ForMember(dest => dest.Student_Full_Name, opt => opt.MapFrom(r => r.Student.Full_Name))
+                 .ForMember(dest => dest.Bus_Marka_Number, opt => opt.MapFrom(r => string.Format("{0} - {1}", r.Bus.Marka , r.Bus.Number)));
+
+
+
+            CreateMap<Student_Bus, StudentPeer>()
+                 .ForMember(dest => dest.lat, opt => opt.MapFrom(r => r.Student.lat))
+                 .ForMember(dest => dest.lng, opt => opt.MapFrom(r => r.Student.lng))
+                 .ForMember(dest => dest.Phone, opt => opt.MapFrom(r => r.Student.Phone))
+                   .ForMember(dest => dest.Full_Name, opt => opt.MapFrom(r => r.Student.Full_Name));
+
+
         }
     }
 }

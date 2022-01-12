@@ -19,5 +19,6 @@ namespace ModelsLayer.DataLayer.Tables
         public BusCompany BusCompany { get; set; }
 
         public ICollection<Driver_Bus> Driver_Buses { get; set; }
+        public ICollection<Student_Bus> Bus_Students { get; set; }
     }
 }

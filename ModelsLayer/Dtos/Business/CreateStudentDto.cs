@@ -1,30 +1,25 @@
 ﻿using ModelsLayer.DataLayer.Core;
-using ModelsLayer.DataLayer.Tables.Permissions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelsLayer.DataLayer.Tables
+namespace ModelsLayer.Dtos.Business
 {
-    public class Student : PersonalCard
+    public class CreateStudentDto : PersonalCard
     {
         public string Father { get; set; }
+        public string Natoinal_Number { get; set; }
         public string Mother { get; set; }
         public DateTime BirthDate { get; set; }
-        public string PersonalImage { get; set; }
         public string ImagePath { get; set; }
-
+        public string PersonalImage { get; set; }
         public int? SystemUser_Id { get; set; }
-        public SystemUser SystemUser { get; set; }
-
+        public string UserName { get; set; }
         public int? Guardian_Id { get; set; }
-        public Guardian Guardian { get; set; }
-
+        public string Guardian_Name { get; set; }
         public int School_Id { get; set; }
-        public School School { get; set; }
-
-        public ICollection<Student_Bus> Student_Buses { get; set; }
+        public string School_Name { get; set; }
     }
 }

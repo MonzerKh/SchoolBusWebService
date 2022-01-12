@@ -14,7 +14,7 @@ namespace ModelsLayer.Dtos.Business
         public string Mother { get; set; }
         public DateTime BirthDate { get; set; }
         public string ImagePath { get; set; }
-        public string PersonalImage { get; set; }
+      //  public string PersonalImage { get; set; }
         public int? SystemUser_Id { get; set; }
         public string UserName { get; set; }
         public int? Guardian_Id { get; set; }

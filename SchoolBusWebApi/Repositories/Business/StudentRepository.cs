@@ -21,7 +21,7 @@ namespace SchoolBusWebApi.Repositories.Business
         public StudentRepository(ApplicationDbContext context, IMapper mapper) : base(context, mapper) { }
 
 
-        public async Task<int> Add(StudentDto item)
+        public async Task<int> Add(CreateStudentDto item)
         {
             var Data = _mapper.Map<Student>(item);
             Data.CreateTime = DateTime.Now;
@@ -35,7 +35,7 @@ namespace SchoolBusWebApi.Repositories.Business
             _context.Students.Remove(new Student() { Id = id });
         }
 
-        public async Task<bool> Update(StudentDto item)
+        public async Task<bool> Update(CreateStudentDto item)
         {
             var Data = await _context.Students.FindAsync(item.Id);
             _mapper.Map(item, Data);
@@ -44,6 +44,8 @@ namespace SchoolBusWebApi.Repositories.Business
             return await _context.SaveChangesAsync() > 0;
         }
 
+      
+
         public async Task<List<StudentDto>> GetAsync()
         {
             var query = _context.Students.AsQueryable();
@@ -51,9 +53,11 @@ namespace SchoolBusWebApi.Repositories.Business
             return await query.ProjectTo<StudentDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
-        public async Task<List<StudentListDto>> GetListAsync()
+        public async Task<List<StudentListDto>> GetListAsync(int School_Id)
         {
             var query = _context.Students.AsQueryable();
+            if (School_Id != 0)
+                query = query.Where(r => r.School_Id == School_Id);
 
             return await query.ProjectTo<StudentListDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
@@ -64,6 +68,13 @@ namespace SchoolBusWebApi.Repositories.Business
             var query = _context.Students.Where(r => r.Id == Id).AsQueryable();
 
             return await query.ProjectTo<StudentDto>(_mapper.ConfigurationProvider).FirstOrDefaultAsync();
+        }
+
+        public async Task<string> GetImageByIdAsync(int Id)
+        {
+            var result = await _context.Students.Where(r => r.Id == Id).Select(r => r.PersonalImage).FirstOrDefaultAsync();
+
+            return result;
         }
 
         public async Task<PagedList<StudentDto>> GetByParamAsync(StudentParams Param)
@@ -87,5 +98,7 @@ namespace SchoolBusWebApi.Repositories.Business
             return await PagedList<StudentDto>.CreateAsync(query,
                  Param.PageNumber, Param.PageSize);
         }
+
+       
     }
 }

@@ -25,9 +25,9 @@ namespace SchoolBusWebApi.Controllers.Business
         }
 
         [HttpGet("GetBus")]
-        public async Task<ActionResult<PagedList<BusDto>>> GetBuses()
+        public async Task<ActionResult<PagedList<BusDto>>> GetBuses(int BusCompany_Id = 0)
         {
-            var Result = await businessUnit.Buses.GetAsync();
+            var Result = await businessUnit.Buses.GetAsync(BusCompany_Id);
             return Ok(Result);
         }
 

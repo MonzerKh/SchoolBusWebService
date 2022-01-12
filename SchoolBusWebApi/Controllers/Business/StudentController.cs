@@ -33,9 +33,9 @@ namespace SchoolBusWebApi.Controllers.Business
         }
 
         [HttpGet("GetStudentList")]
-        public async Task<ActionResult<PagedList<StudentListDto>>> GetStudentList()
+        public async Task<ActionResult<PagedList<StudentListDto>>> GetStudentList(int School_Id = 0)
         {
-            var Result = await businessUnit.Students.GetListAsync();
+            var Result = await businessUnit.Students.GetListAsync(School_Id);
             return Ok(Result);
         }
 
@@ -46,6 +46,16 @@ namespace SchoolBusWebApi.Controllers.Business
         {
             var Result = await businessUnit.Students.GetByIdAsync(Id);
             return Ok(Result);
+        }
+
+        [HttpGet("GetStudentImage/{id}")]
+        public async Task<ActionResult<ImageDto>> GetImageByIdAsync(int id)
+        {
+            var result = new ImageDto();
+            result.Id = id;
+
+            result.ImageData = await businessUnit.Students.GetImageByIdAsync(id);
+            return Ok(result);
         }
 
         [HttpGet("GetStudentPaging")]
@@ -60,7 +70,7 @@ namespace SchoolBusWebApi.Controllers.Business
         }
 
         [HttpPost("SetStudent")]
-        public async Task<ActionResult<StudentDto>> SetStudent(StudentDto Student)
+        public async Task<ActionResult<CreateStudentDto>> SetStudent(CreateStudentDto Student)
         {
             if (Student.Id == 0)
             {

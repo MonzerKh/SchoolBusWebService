@@ -42,6 +42,7 @@ namespace DataAccessLayer.DataAccess
         public DbSet<Guardian> Guardians { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Supervisor> Supervisors { get; set; }
+        public DbSet<Student_Bus> Student_Buses { get; set; }
         #endregion
 
 
@@ -67,6 +68,7 @@ namespace DataAccessLayer.DataAccess
             modelBuilder.ApplyConfiguration(new GuardianFluent());
             modelBuilder.ApplyConfiguration(new StudentFluent());
             modelBuilder.ApplyConfiguration(new SupervisorFluent());
+            modelBuilder.ApplyConfiguration(new Student_BusFluent());
             #endregion
         }
     }

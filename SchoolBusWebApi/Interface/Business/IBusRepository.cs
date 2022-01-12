@@ -11,7 +11,7 @@ namespace SchoolBusWebApi.Interface.Business
     public interface IBusRepository
     {
 
-        Task<List<BusDto>> GetAsync();
+        Task<List<BusDto>> GetAsync(int BusCompany_Id);
 
         Task<BusDto> GetByIdAsync(int Id);
         Task<PagedList<BusDto>> GetByParamAsync(BusParams Param);

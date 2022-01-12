@@ -1,4 +1,6 @@
-﻿using SchoolBusWebApi.Interface.Business;
+﻿using ModelsLayer.Dtos.Business;
+using ModelsLayer.Dtos.DropList;
+using SchoolBusWebApi.Interface.Business;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +19,10 @@ namespace SchoolBusWebApi.Interface
         public IStudentRepository Students { get; }
         public ISupervisorRepository Supervisors { get; }
         public ISchoolRepository Schools { get; }
+        public IStudent_BusRepository Student_Buses { get; }
 
         Task<bool> Complete();
         bool HasChanges();
+        Task<bool> SetBulkStudentBus(List<StudentListDto> students, BusDto bus,int User_Id);
     }
 }

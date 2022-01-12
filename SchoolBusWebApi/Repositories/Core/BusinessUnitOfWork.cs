@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using DataAccessLayer.DataAccess;
+using ModelsLayer.Dtos.Business;
+using ModelsLayer.Dtos.DropList;
 using SchoolBusWebApi.Interface;
 using SchoolBusWebApi.Interface.Business;
 using SchoolBusWebApi.Repositories.Business;
@@ -37,10 +39,23 @@ namespace SchoolBusWebApi.Repositories.Core
 
         public ISupervisorRepository Supervisors => new SupervisorRepository(_context, _mapper);
 
+        public IStudent_BusRepository Student_Buses => new Student_BusRepository(_context, _mapper);
+
+        public async Task<bool> SetBulkStudentBus(List<StudentListDto> students, BusDto bus,int user_Id)
+        {
+            foreach (var student in students)
+            {
+                Student_Buses.DeActivatedPerviousBus(student.Id,user_Id);
+                Student_Buses.AddAsync(new Student_BusDto { Student_Id = student.Id, Bus_Id = bus.Id, CreatedBy = user_Id });
+            }
+            return await Complete();
+        }
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+
 
     
         public bool HasChanges()
@@ -49,5 +64,7 @@ namespace SchoolBusWebApi.Repositories.Core
             var changes = _context.ChangeTracker.HasChanges();
             return changes;
         }
+
+        
     }
 }
