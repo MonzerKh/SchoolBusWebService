@@ -9,8 +9,15 @@ namespace ModelsLayer.Models
 {
     public class Paths
     {
-        public StudentPeer FromLoc { get; set; }
-        public StudentPeer ToLoc { get; set; }
+        public Paths(LocationPeer from, LocationPeer to)
+        {
+            this.FromLoc = from;
+            this.ToLoc = to;
+            this.CalcuateDistance();
+        }
+
+        public LocationPeer FromLoc { get; set; }
+        public LocationPeer ToLoc { get; set; }
         public double Distance { get; set; }
         public void GneratePaths()
         {
@@ -45,6 +52,23 @@ namespace ModelsLayer.Models
         {
             this.Distance = Math.Pow(Convert.ToDouble( this.FromLoc.lat - this.ToLoc.lat), 2) 
                           + Math.Pow(Convert.ToDouble(FromLoc.lng - ToLoc.lng), 2);
+        }
+
+        static public double CalcuateDistance(LocationPeer parent, LocationPeer child)
+        {
+            var Distance = (Math.Pow(Convert.ToDouble(parent.lat - child.lat), 2)
+                          + Math.Pow(Convert.ToDouble(parent.lng - child.lng), 2)) *10000;
+            return Distance;
+        }
+
+        public static List<Paths> GeneratePaths(List<LocationPeer> Peers)
+        {
+            List<Paths> RoutingPath = new List<Paths>();
+            foreach (var from in Peers)
+                foreach (var to in Peers)
+                    RoutingPath.Add(new Paths(from, to));
+
+            return RoutingPath;
         }
     }
 }

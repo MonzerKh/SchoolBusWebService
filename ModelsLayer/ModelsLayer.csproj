@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\GA_TSP.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="GoogleApi" Version="4.0.6" />
   </ItemGroup>
 

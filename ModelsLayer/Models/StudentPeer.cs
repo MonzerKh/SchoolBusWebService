@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelsLayer.Models
 {
-    public class StudentPeer
+    public class LocationPeer
     {
         public int Id { get; set; }
         public string Full_Name { get; set; }
@@ -18,9 +18,9 @@ namespace ModelsLayer.Models
         {
             if (obj == null)
                 return false;
-            if (!(obj is StudentPeer))
+            if (!(obj is LocationPeer))
                 return false;
-            return (this.lat == (obj as StudentPeer).lat && this.lng == (obj as StudentPeer).lng);
+            return (this.lat == (obj as LocationPeer).lat && this.lng == (obj as LocationPeer).lng);
 
         }
 

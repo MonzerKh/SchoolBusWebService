@@ -19,16 +19,18 @@ namespace ModelsLayer.Params
         public int School_Id { get; set; } = 0;
         public int BusCompany_Id { get; set; } = 0;
         public bool? IsActive { get; set; } = null;
-
+        public string FilterAny { get; set; } = "0";
 
 
         public IQueryable<Student_Bus> AddFilter(IQueryable<Student_Bus> query)
         {
+
             query = query.Where(r =>
                 (r.Id == this.Id || this.Id == 0)
              && (r.Student_Id == this.Student_Id || this.Student_Id == 0)
              && (r.Bus_Id == this.Bus_Id || this.Bus_Id == 0)
              && (r.Student.Full_Name.Contains(this.Student_Name) || this.Student_Name == "0")
+             && (r.Student.Full_Name.Contains(this.FilterAny) || r.Bus.Marka.Contains(this.FilterAny) || this.FilterAny == "0")
              && ((r.Bus.Marka.Contains(this.Bus_Name) || this.Bus_Name == "0")
              || (r.Bus.Number.Contains(this.Bus_Name) || this.Bus_Name == "0"))
              && (r.IsActive == this.IsActive || this.IsActive ==null)

@@ -21,6 +21,6 @@ namespace SchoolBusWebApi.Interface.Business
         void Delete(int id);
         void DeActivatedPerviousBus(int id,int user_Id);
         void AddAsync(Student_BusDto student_BusDto);
-        Task<List<StudentPeer>> GetStudentBusTSP(StudentBusParams Params);
+        Task<List<LocationPeer>> GetStudentBusTSP(StudentBusParams Params);
     }
 }

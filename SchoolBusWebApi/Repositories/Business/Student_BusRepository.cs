@@ -93,14 +93,21 @@ namespace SchoolBusWebApi.Repositories.Business
                 Params.PageNumber, Params.PageSize);
         }
 
-        public  async Task<List<StudentPeer>> GetStudentBusTSP(StudentBusParams Params)
+        public  async Task<List<LocationPeer>> GetStudentBusTSP(StudentBusParams Params)
         {
-            var Peers = await Params.AddFilter(_context.Student_Buses.AsQueryable()).ProjectTo<StudentPeer>(_mapper.ConfigurationProvider)
+            var Peers = await Params.AddFilter(_context.Student_Buses.AsQueryable()).ProjectTo<LocationPeer>(_mapper.ConfigurationProvider)
                 .AsQueryable().AsNoTracking().ToListAsync();
 
+            var SchoolLocation = await _context.Schools.ProjectTo<LocationPeer>(_mapper.ConfigurationProvider).FirstOrDefaultAsync();
 
+   
 
-            return Peers;
+            var Tree = new TSP_Tree(SchoolLocation);
+            Tree.CreateRoadsMap(Peers);
+
+            var Result = Tree.FindShortPathTree2();
+            Result.Reverse();
+            return Result;
         }
     }
 }

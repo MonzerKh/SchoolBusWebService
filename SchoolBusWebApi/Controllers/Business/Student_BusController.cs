@@ -99,7 +99,7 @@ namespace SchoolBusWebApi.Controllers.Business
         }
 
         [HttpGet("GetStudentBusTSP")]
-        public async Task<ActionResult<List<StudentPeer>>> GetStudentBusTSP([FromQuery] StudentBusParams Params)
+        public async Task<ActionResult<List<LocationPeer>>> GetStudentBusTSP([FromQuery] StudentBusParams Params)
         {
             var reslut = await businessUnit.Student_Buses.GetStudentBusTSP(Params);
 

@@ -109,11 +109,14 @@ namespace SchoolBusWebApi.Helpers
 
 
 
-            CreateMap<Student_Bus, StudentPeer>()
+            CreateMap<Student_Bus, LocationPeer>()
                  .ForMember(dest => dest.lat, opt => opt.MapFrom(r => r.Student.lat))
                  .ForMember(dest => dest.lng, opt => opt.MapFrom(r => r.Student.lng))
                  .ForMember(dest => dest.Phone, opt => opt.MapFrom(r => r.Student.Phone))
-                   .ForMember(dest => dest.Full_Name, opt => opt.MapFrom(r => r.Student.Full_Name));
+                 .ForMember(dest => dest.Full_Name, opt => opt.MapFrom(r => r.Student.Full_Name));
+
+            CreateMap<School, LocationPeer>()
+                .ForMember(dest => dest.Full_Name, opt => opt.MapFrom(r => r.School_Name));
 
 
         }
